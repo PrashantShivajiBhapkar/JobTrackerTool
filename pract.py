@@ -11,3 +11,10 @@ print('--NOTE: All the following details are of those jobs that match at least {
 
 
 print('mac' in 'machine ')
+
+a = [1,1,2,5,4,6,8,7,9,9,9,5,6,4,8,7]
+print(a)
+b = set(a)
+c = list(b)
+print(b)
+print(c)

@@ -49,7 +49,7 @@ def scraper(soup, sourceTagDict=None, text=False, get_url_list=False):
     				if link != None:
     					url_list.append('https://www.indeed.com' + link)
     	# print(url_list)
-    	return url_list
+    	return list(set(url_list))
 
     	# for arr in range(len(soup)):
     	# 	a = soup[arr].find('a', href=True)
@@ -129,7 +129,10 @@ def get_job_details(url_list, column_list, resume_skills_set, skills_set, posted
 				n_skills_matched = len(skills_matched)
 				n_skills_missing = len(skills_missing)
 				n_irrelevant_extra_skills = len(irrelevant_extra_skills)
-				match_percentage = round((n_skills_matched/n_job_skills)*100, 2)				
+				match_percentage = round((n_skills_matched/n_job_skills)*100, 2)
+				['JobTitle', 'company', 'JobLocation', 'JobType', 'DaysPostedAgo', 'MatchPercentage'
+		, 'LinkToApply', 'NoOfSkillsJobDemanded', 'SkillsJobDemended', 'NoOfMatchedSkills', 'MatchedSkills', 'NoOfUnmatchedSkills'
+		 , 'UnmatchedSkills', 'NoOfExtraSkillsYouHave', 'ExtraSkillsYouHave', 'MyTotalSkills']				
 				
 				if match_percentage > match_percentage_threshold:
 					df_temp = pd.DataFrame([[job_title, company, job_location, job_type, days_posted_ago 
@@ -219,18 +222,20 @@ def main(resume, search_string, n_pages_to_scrape, posted_since_threshold=15
 if __name__ == '__main__':
 	format = "%H:%M:%S %a, %b-%d-%Y"
 	
-	resume = 'C:/GitProjects/ResumeMatcher/Sample Resume/Resume Prashant Shivaji Bhapkar.pdf'
-	match_percentage_threshold = 55
-	days_posted_ago_threshold = 10
+	resume = 'C:/GitProjects/ResumeMatcher/Sample Resume/Resume_Abhishek_Magotra.pdf'
+	match_percentage_threshold = 50
+	days_posted_ago_threshold = 15
+	n_pages = 2
 	
 	print("============= JOB CONSUMPTION STARTED AT " + 
 		str(datetime.datetime.strptime(datetime.datetime.today().strftime(format), format).strftime(format)) +
 		" =============")
 
-	da_df = main(resume, 'Data Analyst Intern', 30, days_posted_ago_threshold, match_percentage_threshold)
-	ml_df = main(resume, 'Machine Learning Intern', 30, days_posted_ago_threshold, match_percentage_threshold)
-	dl_df = main(resume, 'Deep Learning Intern', 30, days_posted_ago_threshold, match_percentage_threshold)
-	ds_df = main(resume, 'Data Science Intern', 30, days_posted_ago_threshold, match_percentage_threshold)
+	da_df = main(resume, 'Data Analyst Intern', n_pages, days_posted_ago_threshold, match_percentage_threshold)
+	# ds_df = main(resume, 'Data Science Intern', n_pages, days_posted_ago_threshold, match_percentage_threshold)
+	# ml_df = main(resume, 'Machine Learning Intern', n_pages, days_posted_ago_threshold, match_percentage_threshold)
+	# dl_df = main(resume, 'Deep Learning Intern', n_pages, days_posted_ago_threshold, match_percentage_threshold)
+	
 
 	print('')
 	print('============= SUMMARY =============')
