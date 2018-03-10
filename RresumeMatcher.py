@@ -130,9 +130,7 @@ def get_job_details(url_list, column_list, resume_skills_set, skills_set, posted
 				n_skills_missing = len(skills_missing)
 				n_irrelevant_extra_skills = len(irrelevant_extra_skills)
 				match_percentage = round((n_skills_matched/n_job_skills)*100, 2)
-				['JobTitle', 'company', 'JobLocation', 'JobType', 'DaysPostedAgo', 'MatchPercentage'
-		, 'LinkToApply', 'NoOfSkillsJobDemanded', 'SkillsJobDemended', 'NoOfMatchedSkills', 'MatchedSkills', 'NoOfUnmatchedSkills'
-		 , 'UnmatchedSkills', 'NoOfExtraSkillsYouHave', 'ExtraSkillsYouHave', 'MyTotalSkills']				
+								
 				
 				if match_percentage > match_percentage_threshold:
 					df_temp = pd.DataFrame([[job_title, company, job_location, job_type, days_posted_ago 
